@@ -1,7 +1,7 @@
 <?php 
   include_once('header.php');
   if(!$_SESSION){
-    header("Location: ../jobportal/login.php?identity=candidate");
+    header("Location: ../jobportal/candidates.php?identity=candidate");
   }
 ?>
    <?php

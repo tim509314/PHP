@@ -1,5 +1,5 @@
 <?php
-echo '<h5 class="card-title" style="font-weight: bold"><a href="../jobportal/apply.php?job_id='.$job['job_id'].'" class="card-link">'.$job['job_title'].'</a></h5>';
+echo '<h5 class="card-title" style="font-weight: bold">'.$job['job_title'].'</h5>';
 echo '<h6 class="card-subtitle mb-2 text-body-secondary">'.$job['company'].'</h6>';
 echo '<p class="card-text">
         <ul>

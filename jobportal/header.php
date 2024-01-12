@@ -25,10 +25,10 @@ footer{
 
 </head>
 <body>
-    <nav class="navbar bg-body-tertiary">
+    <nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="../jobportal/index.php">Jobportal</a>
-            <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <nav class="navbar navbar-expand-lg">
                 <ul class="navbar-nav">
                     <?php
                         if($_SESSION){
@@ -49,8 +49,8 @@ footer{
                             }
                             echo '<li class="nav-item"><a class="nav-link" href="../jobportal/function.php?op=logout">Logout</a></li>';
                         }else{
-                            echo '<li class="nav-item"><a class="nav-link" href="../jobportal/login.php">Login</a></li>';
-                            echo '<li class="nav-item"><a class="nav-link" href="../jobportal/register.php">Register</a></li>';
+                            echo '<li class="nav-item bg-dark" ><a class="nav-link" href="../jobportal/candidates.php">Candidates</a></li>';
+                            echo '<li class="nav-item bg-dark" ><a class="nav-link" href="../jobportal/employers.php">Employers</a></li>';
                         }
                             
                     ?>

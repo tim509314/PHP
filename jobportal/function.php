@@ -37,6 +37,13 @@
         case 'updatecv':
             updatecv($_POST['full_name'], $_POST['email'], $_POST['phone_no'], $_POST['residential_area'], $_POST['candidate_id']);
             break;
+        case 'searchjob':
+            searchjob();
+            break;
+    }
+
+    function searchjob(){
+        header("Location: ../jobportal/index.php?searchjob");
     }
 
     function updatecv($full_name, $email, $phone_no, $residential_area, $candidate_id){
@@ -182,7 +189,7 @@
             $identity = 'employers';
             countItem($identity, $_POST['email'], $sql);
         } else {
-            alert("Invalid Input", "../jobportal/register.php");
+            alert("Invalid Input", "../jobportal/employers.php");
         }   
     }
 
@@ -237,7 +244,7 @@
             $identity = 'candidates';
             countItem($identity, $_POST['email'], $sql);
         }else{
-            alert("Invalid Input", "../jobportal/register.php");
+            alert("Invalid Input", "../jobportal/employers.php");
         }
     }
 
@@ -256,10 +263,10 @@
                 $_SESSION['email'] = $user['email'];
                 header("Location: ../jobportal/index.php");
             }else{
-                alert("Invalid Email or Password", "../jobportal/login.php");
+                alert("Invalid Email or Password", "../jobportal/candidates.php");
             }
         }else{
-            alert("Invalid Input", "../jobportal/login.php");
+            alert("Invalid Input", "../jobportal/candidates.php");
         }
         
     }
@@ -277,12 +284,12 @@
 
         if($num_rows_candidates == 0 && $num_rows_employers == 0){
             if(mysqli_query($dbConnection, $sql)){
-                header("Location: ../jobportal/login.php");
+                header("Location: ../jobportal/candidates.php");
             }else{
-                header("Location: ../jobportal/register.php");
+                header("Location: ../jobportal/employers.php");
             } 
         }else{
-            alert("This email is already registered, please try another email", "../jobportal/register.php");
+            alert("This email is already registered, please try another email", "../jobportal/employers.php");
         } 
     }
 

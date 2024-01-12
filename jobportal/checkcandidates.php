@@ -1,6 +1,6 @@
 <?php include_once('header.php'); ?>
 
-<div class="container-sm">
+<div class="container-sm" style="margin-top: 1rem">
   <?php
     if($_SESSION){
         $jobappQ = mysqli_query($dbConnection, "SELECT * FROM `jobapp` WHERE `job_id` ='".$_GET['job_id']."' AND `employer_id` = '".$thisuser."'");
@@ -8,7 +8,7 @@
         $job = mysqli_fetch_assoc($jobQ);
         echo 'This Application is: '.$job['job_title'];
         while ($jobapp = mysqli_fetch_assoc($jobappQ)){
-            echo '<div class="card" style="margin: 1rem">';
+            echo '<div class="card" style="margin-top: 1rem">';
             echo '<div class="card-body">';
 
             $cvQ = mysqli_query($dbConnection, "SELECT * FROM `cvs` WHERE `candidate_id` ='".$jobapp['candidate_id']."'");
