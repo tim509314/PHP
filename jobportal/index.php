@@ -103,14 +103,21 @@
       }
     }
   }
-  }
-  if (mysqli_num_rows($jobQ) == 0) {
+  
+  if (mysqli_num_rows($jobQ) == 0 && !isset($_POST['searchjob'])) {
     echo '<div class="card" style="margin-top: 1rem">';
     echo '<div class="card-body">';
     echo '<p class="text-center">No jobs available at the moment. Please check back later.</p>';
     echo '</div>';
     echo '</div>';
+  }else if(mysqli_num_rows($jobQ) == 0 && isset($_POST['searchjob'])){
+    echo '<div class="card" style="margin-top: 1rem">';
+    echo '<div class="card-body">';
+    echo '<p class="text-center">Sorry, no results were found for "'.$_POST['searchjob'].'". <br>Please try again with different keywords.</p>';
+    echo '</div>';
+    echo '</div>';
   }
+}
 
   ?>
 </div>

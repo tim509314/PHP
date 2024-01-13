@@ -26,7 +26,7 @@
             updatejob($_POST['job_title'], $_POST['job_description'], $_POST['job_highlight1'], $_POST['job_highlight2'], $_POST['job_highlight3'],$_POST['job_id']);
             break;
         case 'createcv':
-            createcv($_POST['full_name'], $_POST['email'], $_POST['phone_no'], $_POST['residential_area'], $_POST['candidate_id']);
+            createcv($_POST['full_name'], $_POST['email'], $_POST['phone_no'], $_POST['residential_area'], $_POST['candidate_id'], $_FILES['cv_img']);
             break;
         case 'apply':
             applyjob($_POST['job_id'], $_POST['cv_id']);
@@ -114,36 +114,60 @@
         }
     }
 
-    function createcv($full_name, $email, $phone_no, $residential_area, $candidate_id){
+    function createcv($full_name, $email, $phone_no, $residential_area, $candidate_id, $cv_img){
         global $dbConnection;
         $candidateQ = mysqli_query($dbConnection, "SELECT * FROM `candidates` WHERE `email` ='".$email."'");
         $candidate = mysqli_fetch_assoc($candidateQ);
 
-        if(areInputsNotNull(array($full_name, $email, $phone_no, $residential_area))) {
-            $sql = "INSERT INTO `db_jobportal`.`cvs`(
-                `candidate_id`, 
-                `full_name`, 
-                `email`, 
-                `phone_no`, 
-                `residential_area`
-                ) VALUES (
-                '$candidate_id',
-                '".$full_name."',
-                '".$email."',
-                '".$phone_no."',
-                '".$residential_area."'
-                )";
-
-            if(mysqli_query($dbConnection, $sql)){
-                header("Location: ../jobportal/index.php");
-            }else{
-                echo "Error updating record: " . $dbConnection->error;
-            }
-        } else {
-            alert("Invalid Input", "../jobportal/index.php");
-        }
+        $imgfilename = $cv_img['name'];
+        $imgfileerror = $cv_img['error'];
+        $imgfiletemp = $cv_img['tmp_name'];
         
+        $filename_separate = explode('.', $imgfilename);
+        $file_extension = strtolower(end($filename_separate));
+        $extension = array('jpeg', 'jpg', 'png');
+
+        $file_size = $cv_img['size'];
+        
+        if (($file_size <= 8388608)){      
+                if(areInputsNotNull(array($full_name, $email, $phone_no, $residential_area))) {
+                    if (in_array($file_extension, $extension)){
+                        $upload_img = 'img/'.$imgfilename;
+                        move_uploaded_file($imgfiletemp, $upload_img);
+                        
+                        $sql = "INSERT INTO `db_jobportal`.`cvs`(
+                            `candidate_id`, 
+                            `full_name`, 
+                            `email`, 
+                            `phone_no`, 
+                            `residential_area`,
+                            `cv_img`
+                            ) VALUES (
+                            '$candidate_id',
+                            '".$full_name."',
+                            '".$email."',
+                            '".$phone_no."',
+                            '".$residential_area."',
+                            '".$upload_img."'
+                            )";
+                                
+                        if(mysqli_query($dbConnection, $sql)){
+                            header("Location: ../jobportal/index.php");
+                        }else{
+                            echo "Error updating record: " . $dbConnection->error;
+                        }
+                    }
+                } else {
+                    alert("Invalid Input", "../jobportal/index.php");
+                }
+            
+        }else{
+            $message = 'File too large. File must be less than 8 megabytes.'; 
+            echo '<script type="text/javascript">alert("Invalid Input", "../jobportal/Profile.php");</script>'; 
+        }
+              
     }
+    
 
 
     function updatejob($job_title, $job_description, $job_highlight1, $job_highlight2, $job_highlight3, $job_id){

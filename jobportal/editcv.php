@@ -13,6 +13,8 @@
         echo'
         <div class="container-sm" style="margin-top: 1rem">
         <p class="text" >Please update your details below.</p>
+        <div class="row">
+                    <div class="col-sm-8">
             <form action="function.php?op=updatecv" method="post">
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon1">Full Name</span>
@@ -34,6 +36,15 @@
                         <option value="Hong Kong Island">Hong Kong Island</option>
                         <option value="New Territori">New Territori</option>
                     </select>
+                </div>                
+                    <div class="input-group mb-3 ">
+                        <input type="file" class="form-control" id="inputGroupFile02" name="cv_img">
+                        <label class="input-group-text" for="inputGroupFile02">Upload</label>
+                    </div>
+                </div>
+                    <div class="col-sm-4 text-center ">
+                        <img src="'.$cv['cv_img'].'" height="200px" style="padding-top:2.5rem">
+                    </div>
                 </div>
                 <input type="hidden" name="candidate_id"  value="'.$thisuser.'">
                 <button type="submit" class="btn btn-primary">Update</button>

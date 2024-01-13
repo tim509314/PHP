@@ -10,8 +10,10 @@
                     echo'
                         <div class="container-sm" >
                             <div class="container-sm" style="margin-top: 1rem">
+                            <div class="row">
+                    <div class="col-sm-8">
                                 <p class="text" >Please fill in your details below.</p>
-                                <form action="function.php?op=createcv" method="post">
+                                <form action="function.php?op=createcv" method="post" enctype="multipart/form-data">
                                     <div class="input-group mb-3">
                                         <span class="input-group-text" id="basic-addon1">Full Name</span>
                                         <input type="text" class="form-control" placeholder="Full Name" aria-label="job_title" aria-describedby="basic-addon1" name="full_name">
@@ -33,9 +35,19 @@
                                             <option value="New Territori">New Territori</option>
                                         </select>
                                     </div>
+                                    <div class="input-group mb-3">
+                                        <input type="file" class="form-control" id="inputGroupFile02" name="cv_img"  onchange="readURL(this);">
+                                        <label class="input-group-text" for="inputGroupFile02">Upload</label>
+                                    </div>
+                                    
                                     <input type="hidden" name="candidate_id" value="'.$thisuser.'">
                                     <button type="submit" class="btn btn-primary">Submit</button>
                                 </form>
+                                </div>
+                                <div class="col-sm-4 text-center ">
+                                    <img id="blah"  style="height:200px; padding-top:8rem ">
+                                </div>
+                            </div>
                             </div>
                         </div>
                     ';
